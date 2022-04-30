@@ -9,18 +9,20 @@
 
 #pragma once
 #include <vector>
-#include "SmartSystem.h";
+#include <map>
+#include "SmartSystem.h"
 
 class Controller
 {
 private:
 	SmartSystem* currentSystem;
-	std::vector<std::string, SmartSystem*> allSystems;
+	std::map<std::string, SmartSystem*> allSystemsDictionary;
+	void mapSystem(SmartSystem* system);
 
 public:
 	// Constructors
-	Controller(std::vector<std::string, SmartSystem*> systems);
+	Controller(std::vector<SmartSystem*> systems);
 
 	// Methods
-	void selectSystem(SmartSystem* system);
+	void selectSystemByName(std::string name);
 };

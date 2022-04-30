@@ -9,7 +9,10 @@
  */
 
 #include <iostream>
+#include <vector>
 #include "PowerSchedule.cpp"
+#include "SmartSystem.h"
+#include "Controller.h"
 #include "Lights.h"
 #include "Television.h"
 #include "Thermostat.h"
@@ -23,12 +26,24 @@ int main()
 	Thermostat hallwayThermostat("Hallway Thermostat");
 	Security frontDoorSecurity("Front Door Security Alarm");
 
+	std::vector<SmartSystem*> allSystems {
+		&livingRoomLights,
+		&livingRoomTV,
+		&hallwayThermostat,
+		&frontDoorSecurity
+	};
+
+	// Controller
+	Controller controller(allSystems);
+
 	// Power schedules
 	// TODO: how should these be passed to the instantiated objects?
 	PowerSchedule<Lights> livingRoomLightsPowerSchedule;
 	PowerSchedule<Television> livingRoomTVPowerSchedule;
 	PowerSchedule<Thermostat> hallwayThermostatPowerSchedule;
 	PowerSchedule<Security> frontDoorSecurityPowerSchedule;
+	
+	std::cout << "Choose a system:" << std::endl;
 
 	return 0;
 }

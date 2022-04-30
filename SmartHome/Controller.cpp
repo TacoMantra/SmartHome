@@ -9,13 +9,25 @@
 
 
 #include "Controller.h"
+#include <iostream>
+#include<algorithm>
 
-Controller::Controller(std::vector<std::string, SmartSystem*> systems)
+void Controller::mapSystem(SmartSystem* system)
 {
-	allSystems = systems;
+	allSystemsDictionary.insert(std::pair<std::string, SmartSystem*>(system->getName(), system));
 }
 
-void Controller::selectSystem(SmartSystem* system)
+Controller::Controller(std::vector<SmartSystem*> systems)
 {
-	currentSystem = system;
+	for (int i = 0; i < systems.size(); i++)
+	{
+		mapSystem(systems[i]);
+	}
+
+	currentSystem = allSystemsDictionary[0];
+}
+
+void Controller::selectSystemByName(std::string name)
+{
+	currentSystem = allSystemsDictionary[name];
 }
