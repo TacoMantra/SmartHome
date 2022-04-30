@@ -18,6 +18,7 @@ protected:
 
 public:
 	// Constructors
+
 	SmartSystem(std::string systemName);
 
 	// Accessors
