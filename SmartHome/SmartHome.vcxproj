@@ -149,6 +149,7 @@
     <ClInclude Include="SmartSystem.h" />
     <ClInclude Include="Television.h" />
     <ClInclude Include="Thermostat.h" />
+    <ClInclude Include="Validation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Controller.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="SmartSystem.cpp" />
     <ClCompile Include="Television.cpp" />
     <ClCompile Include="Thermostat.cpp" />
+    <ClCompile Include="Validation.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -14,11 +14,11 @@ class SmartSystem
 {
 protected:
 	std::string name;
-	bool isOn;
+	bool isOn = "false";
 
 public:
 	// Constructors
-
+	SmartSystem();
 	SmartSystem(std::string systemName);
 
 	// Accessors

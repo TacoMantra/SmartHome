@@ -23,6 +23,9 @@ public:
 	// Constructors
 	Controller(std::vector<SmartSystem*> systems);
 
+	// Accessors
+	SmartSystem getCurrentSystem();
+
 	// Methods
 	void selectSystemByName(std::string name);
 };

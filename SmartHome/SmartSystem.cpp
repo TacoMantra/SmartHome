@@ -10,6 +10,10 @@
 #include "SmartSystem.h"
 #include <string>
 
+SmartSystem::SmartSystem()
+{
+}
+
 SmartSystem::SmartSystem(std::string systemName)
 {
 	name = systemName;

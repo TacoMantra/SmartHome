@@ -19,6 +19,7 @@ int Security::getSensitivity()
 
 void Security::setSensitivity(int sensitivityOneToFive)
 {
+    // TODO: when this is implemented, handle out of range exception
     if (sensitivityOneToFive < 1 || sensitivityOneToFive > 5)
     {
         throw std::out_of_range("Parameter is outside of range 1-5");

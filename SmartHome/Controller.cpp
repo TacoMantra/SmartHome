@@ -23,8 +23,11 @@ Controller::Controller(std::vector<SmartSystem*> systems)
 	{
 		mapSystem(systems[i]);
 	}
+}
 
-	currentSystem = allSystemsDictionary[0];
+SmartSystem Controller::getCurrentSystem()
+{
+	return *currentSystem;
 }
 
 void Controller::selectSystemByName(std::string name)
