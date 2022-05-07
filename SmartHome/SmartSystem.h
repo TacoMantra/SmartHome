@@ -9,12 +9,17 @@
 
 #pragma once
 #include <string>
+#include <map>
+#include "TimeOfDay.h"
+#include "PowerSchedule.h"
 
 class SmartSystem
 {
 protected:
 	std::string name;
-	bool isOn = "false";
+	bool powerScheduleIsOverridden = false;
+	bool overridePowerIsOn = false;
+	std::map<int, std::pair<timeOfDay, timeOfDay>> weeklySchedule;
 
 public:
 	// Constructors
@@ -26,5 +31,6 @@ public:
 	bool getPowerStatus();
 
 	// Mutators
-	void togglePower();
+	void toggleOverridePower();
+	void updateWeeklySchedule(int dayOfWeek, std::pair<timeOfDay, timeOfDay> startAndEndTime);
 };

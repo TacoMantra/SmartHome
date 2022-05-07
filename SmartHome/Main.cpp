@@ -2,14 +2,15 @@
  * Main.cpp
  *
  * Instantiates Lights, Television, Thermostat, and Security
- * objects.
+ * objects and guides user through basic operations.
  * 
- * Jon Miller, 2022.04.24
+ * Jon Miller, 2022.04.30
  *
  */
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "PowerSchedule.cpp"
 #include "SmartSystem.h"
 #include "Controller.h"
@@ -34,18 +35,32 @@ int main()
 		&frontDoorSecurity
 	};
 
+	// Power schedules
+	PowerSchedule<SmartSystem> livingRoomLightsPowerSchedule(&livingRoomLights);
+	PowerSchedule<SmartSystem> livingRoomTVPowerSchedule(&livingRoomTV);
+	PowerSchedule<SmartSystem> hallwayThermostatPowerSchedule(&hallwayThermostat);
+	PowerSchedule<SmartSystem> frontDoorSecurityPowerSchedule(&frontDoorSecurity);
+
+	std::vector<PowerSchedule<SmartSystem>> allSchedules
+	{
+		livingRoomLightsPowerSchedule,
+		livingRoomTVPowerSchedule,
+		hallwayThermostatPowerSchedule,
+		frontDoorSecurityPowerSchedule
+	};
+
+	std::map<string, PowerSchedule<SmartSystem>> schedulesDictionary;
+
+	for (int i = 0; i < allSystems.size(); i++)
+	{
+		schedulesDictionary.insert({ allSystems[i]->getName(), allSchedules[i] });
+	};
+
 	// Controller
 	Controller controller(allSystems);
 
 	// Validation
 	Validation validation;
-
-	// Power schedules
-	// TODO: how should these be passed to the instantiated objects?
-	PowerSchedule<Lights> livingRoomLightsPowerSchedule;
-	PowerSchedule<Television> livingRoomTVPowerSchedule;
-	PowerSchedule<Thermostat> hallwayThermostatPowerSchedule;
-	PowerSchedule<Security> frontDoorSecurityPowerSchedule;
 	
 	// Choose a system
 	int systemChoice;
@@ -63,20 +78,25 @@ int main()
 
 	// Perform an action
 	int actionChoice;
-	std::cout << "What would you like to do?" << std::endl << "1. Turn " << currentSystemName << (currentSystem.getPowerStatus() ? " off" : " on") << std::endl;
-	validation.promptForIntegerInRange(&actionChoice, 1, 1);
+	// TODO: more actions based on type of system chosen
+	std::cout << "What would you like to do?" << std::endl
+		<< "1. Turn " << currentSystemName << (currentSystem.getPowerStatus() ? " off" : " on") << std::endl
+		<< "2. Set a power schedule for " << currentSystemName << std::endl;
+
+	validation.promptForIntegerInRange(&actionChoice, 1, 2);
 
 	switch (actionChoice)
 	{
 	case 1:
-		currentSystem.togglePower();
+		currentSystem.toggleOverridePower();
 		std::cout << currentSystemName << " system is " << (currentSystem.getPowerStatus() ? "on" : "off") << std::endl;
 		break;
-	// TODO: more actions based on type of system chosen
+	case 2:
+		schedulesDictionary[currentSystemName].promptUser();
+		break;
 	default:
 		cout << "Some other action..." << std::endl;
 	}
-	// TODO: extract to function, recurse back to main menu
 
 	return 0;
 }

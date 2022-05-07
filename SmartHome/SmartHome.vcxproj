@@ -149,6 +149,7 @@
     <ClInclude Include="SmartSystem.h" />
     <ClInclude Include="Television.h" />
     <ClInclude Include="Thermostat.h" />
+    <ClInclude Include="TimeOfDay.h" />
     <ClInclude Include="Validation.h" />
   </ItemGroup>
   <ItemGroup>

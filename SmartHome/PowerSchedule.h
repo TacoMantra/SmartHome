@@ -13,7 +13,7 @@
 #include <concepts>
 #include <map>
 #include "SmartSystem.h"
-#include "DaysOfWeek.h"
+#include "TimeOfDay.h"
 
 template<class T, class U>
 concept Derived = std::is_base_of<U, T>::value;
@@ -21,16 +21,17 @@ concept Derived = std::is_base_of<U, T>::value;
 template <Derived<SmartSystem> T>
 class PowerSchedule
 {
-private:
-	std::map<DaysOfWeek, std::pair<tm, tm>> weeklySchedule;
+private: 
+	T* smartSystem;
 
 public:
-	// Accessors
-	std::map<DaysOfWeek, std::pair<tm, tm>> getWeeklySchedule();
+	// Constructors
+	PowerSchedule();
+	PowerSchedule(T* system);
 
 	// Mutators
-	void setScheduleByDayOfWeek(DaysOfWeek day, std::pair<tm, tm> startAndEndTime);
+	void setScheduleByDayOfWeek(int dayOfWeek, std::pair<timeOfDay, timeOfDay> startAndEndTime);
 
 	// Methods
-	void runSchedule();
+	void promptUser();
 };
